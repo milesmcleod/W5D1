@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030220137) do
+ActiveRecord::Schema.define(version: 20171030225226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "goal_comments", force: :cascade do |t|
+    t.string "body"
+    t.integer "goal_id"
+    t.integer "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "goals", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,6 +30,14 @@ ActiveRecord::Schema.define(version: 20171030220137) do
     t.integer "user_id"
     t.boolean "private", default: false
     t.index ["user_id"], name: "index_goals_on_user_id"
+  end
+
+  create_table "user_comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "body"
+    t.integer "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

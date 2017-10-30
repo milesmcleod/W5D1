@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -52,10 +52,12 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

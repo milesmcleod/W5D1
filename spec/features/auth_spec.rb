@@ -28,15 +28,19 @@ feature 'the signup process' do
 end
 
 feature 'logging in' do
+  subject!(:user) do
+    FactoryBot.create(:user)
+  end
+
   before(:each) do
     visit new_session_url
-    fill_in 'username', with: 'testing_username'
-    fill_in 'password', with: 'biscuits'
-    click_on 'Sign In'
+    fill_in 'username', with: 'Ron Burgundy'
+    fill_in 'password', with: 'password'
+    click_on 'Log In'
   end
 
   scenario 'shows username on the homepage after login' do
-    expect(page).to have_content('testing_username')
+    expect(page).to have_content('Ron Burgundy')
   end
 
   scenario 'redirects to goal index page after signup' do
@@ -45,18 +49,21 @@ feature 'logging in' do
 end
 
 feature 'logging out' do
+  subject!(:user) do
+    FactoryBot.create(:user)
+  end
   scenario 'begins with a logged out state' do
-    visit ('/')
+    visit ('/goals')
     expect(page).to have_content('Sign In')
   end
 
   scenario 'doesn\'t show username on the homepage after logout' do
     visit new_session_url
-    fill_in 'username', with: 'testing_username'
-    fill_in 'password', with: 'biscuits'
-    click_on 'Sign In'
+    fill_in 'username', with: 'Ron Burgundy'
+    fill_in 'password', with: 'password'
+    click_on 'Log In'
     click_on 'Sign Out'
-    expect(page).not_to have_content('testing_username')
+    expect(page).not_to have_content('Ron Burgundy')
   end
 
 end

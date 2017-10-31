@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_logged_in, only: [:index, :show]
+
   def new
     render :new
   end
@@ -8,7 +10,7 @@ class UsersController < ApplicationController
 
     if @user.save
       login!(@user)
-      redirect_to goals_url
+      redirect_to users_url
     else
       flash[:errors] = @user.errors.full_messages
       render :new

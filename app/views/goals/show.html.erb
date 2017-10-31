@@ -1,2 +1,20 @@
-<h1>Goals#show</h1>
-<p>Find me in app/views/goals/show.html.erb</p>
+<h1>Goal</h1>
+
+<%= @goal.body %>
+<ul>
+<% @goal.comments.each do |c| %>
+  <li><%= c.body %></li>
+<% end %>
+</ul>
+<h2>Add Comment to Goal</h2>
+
+<form action="/comments" method="post">
+
+  <label for="comment">Comment: </label>
+  <input id='comment' type="text" name="comment[body]" value="">
+  <input type="hidden" name="comment[commentable_type]" value="Goal">
+  <input type="hidden" name="comment[commentable_id]" value="<%= @goal.id %>">
+
+  <input type="submit" name="" value="Save Comment">
+</form>
+<%= link_to 'Back to User Page', user_url(@goal.user) %>

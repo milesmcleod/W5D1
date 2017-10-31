@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :goals
 
+  has_many :comments, as: :commentable
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

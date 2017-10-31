@@ -20,7 +20,7 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
     @goal.user_id = current_user.id
     if @goal.save
-      redirect_to(goals_url)
+      redirect_to user_url(@goal.user)
     else
       flash[:errors] = @goal.errors.full_messages
       render :new
@@ -48,6 +48,6 @@ class GoalsController < ApplicationController
   end
 
   def goal_params
-    params.require(:goal).permit(:body)
+    params.require(:goal).permit(:body, :private)
   end
 end

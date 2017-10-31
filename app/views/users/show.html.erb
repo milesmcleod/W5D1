@@ -1,0 +1,51 @@
+<h1><%=@user.username%>'s Profile  </h1>
+
+<h2>User Comments</h2>
+
+<ul>
+
+<% @user.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+<% end %>
+
+</ul>
+
+<form action="/comments" method="post">
+
+  <label for="comment">Comment: </label>
+  <input id='comment' type="text" name="comment[body]" value="">
+  <input type="hidden" name="comment[commentable_type]" value="User">
+  <input type="hidden" name="comment[commentable_id]" value="<%= @user.id %>">
+
+  <input type="submit" name="" value="Save Comment">
+</form>
+
+
+
+<h2><%=@user.username%>'s Goals  </h2>
+
+<ul>
+
+<% @user.goals.each do |goal| %>
+  <li><a href=" <%= goal_url(goal) %> "><%= goal.body %></a>
+    <ul>
+    <% goal.comments.each do |c| %>
+      <li><%= c.body %></li>
+    <% end %>
+    </ul>
+  </li>
+<% end %>
+
+</ul>
+
+<form action="/goals" method="post">
+
+  <label for="goal">Goal: </label>
+  <input id='goal' type="text" name="goal[body]" value="">
+  <input type="hidden" name="goal[private]" value="<%=true%>">
+  <input type="submit" name="" value="Save Goal">
+</form>
+
+
+
+<%= button_to 'All Users', users_url, method: :get %>
